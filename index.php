@@ -1,4 +1,11 @@
 <?php get_header(); ?>
+  <?php 
+    function doubleMe($num) {
+      return $num * 2;
+    }
+
+    echo doubleMe(5)
+  ?>
 
   <div class="page-banner">
     <div class="page-banner__bg-image"
