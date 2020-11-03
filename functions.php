@@ -14,13 +14,13 @@ function university_files() {
   
 }
 
-add_action('wp_enqueue_scripts', 'university_files');
-
 function university_features() {
   add_theme_support('title-tag');
+  add_theme_support('post-thumbnails');
+  add_image_size('professorLandscape', 400, 260, true);
+  add_image_size('professorPortrait', 480, 650, true);
 }
 
-add_action('after_setup_theme', 'university_features');
 
 function university_adjust_queries($query) {
   $today = date('Ymd');
@@ -46,5 +46,7 @@ function university_adjust_queries($query) {
 
 }
 
+add_action('wp_enqueue_scripts', 'university_files');
+add_action('after_setup_theme', 'university_features');
 add_action('pre_get_posts', 'university_adjust_queries')
 ?>
