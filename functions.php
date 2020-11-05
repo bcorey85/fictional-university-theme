@@ -19,6 +19,7 @@ function university_features() {
   add_theme_support('post-thumbnails');
   add_image_size('professorLandscape', 400, 260, true);
   add_image_size('professorPortrait', 480, 650, true);
+  add_image_size('pageBanner', 1500, 350, true);
 }
 
 
@@ -46,7 +47,39 @@ function university_adjust_queries($query) {
 
 }
 
+function pageBanner($config = []) {
+  //php logic here
+  if (!array_key_exists('title', $config)) {
+    $config['title'] =  get_the_title();
+  }
+
+  if (!array_key_exists('subtitle', $config)) {
+    $config['subtitle'] = get_field('page_banner_subtitle');
+  }
+
+  if (!array_key_exists('image', $config)) {
+    if (get_field('page_banner_background_image') && !is_archive() && !is_home() ) {
+      $config['image'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
+    } else {
+      $config['image'] = get_theme_file_uri('/images/ocean.jpg');
+    }
+  }
+
+  ?> 
+    <div class="page-banner">
+      <div class="page-banner__bg-image" 
+          style="background-image: url(<?php echo $config['image']; ?>);">
+      </div>
+      <div class="page-banner__content container container--narrow">
+        <h1 class="page-banner__title"><?php echo $config['title']; ?></h1>
+        <div class="page-banner__intro">
+          <p><?php echo $config['subtitle'] ?></p>
+        </div> 
+      </div>  
+    </div>
+  <?php
+}
+
 add_action('wp_enqueue_scripts', 'university_files');
 add_action('after_setup_theme', 'university_features');
-add_action('pre_get_posts', 'university_adjust_queries')
-?>
+add_action('pre_get_posts', 'university_adjust_queries');
