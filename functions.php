@@ -1,4 +1,5 @@
 <?php
+require get_theme_file_path('/includes/search-route.php');
 
 function university_files() {
   wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
@@ -88,7 +89,14 @@ function pageBanner($config = []) {
   <?php
 }
 
+function university_custom_rest() {
+  register_rest_field('post', 'authorName', [
+    'get_callback' => function() { return get_the_author();}
+  ]);
+}
 
 add_action('wp_enqueue_scripts', 'university_files');
 add_action('after_setup_theme', 'university_features');
 add_action('pre_get_posts', 'university_adjust_queries');
+add_action('rest_api_init', 'university_custom_rest');
+

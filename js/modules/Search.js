@@ -94,7 +94,9 @@ class Search {
 						${combinedResults
 							.map(item => {
 								return `<li><a href='${item.link}'>${item.title
-									.rendered}</a></li>`;
+									.rendered} ${item.type === 'post'
+									? `by ${item.authorName}`
+									: ''}</a></li>`;
 							})
 							.join('')}
 					${combinedResults.length ? '</ul>' : ''}
