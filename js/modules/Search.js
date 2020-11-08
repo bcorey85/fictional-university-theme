@@ -30,6 +30,8 @@ class Search {
 		setTimeout(() => {
 			this.searchField.focus();
 		}, 301);
+		// prevent link from changing page if JS enabled
+		return false;
 	}
 
 	closeOverlay() {
