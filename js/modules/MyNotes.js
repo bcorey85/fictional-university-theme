@@ -26,16 +26,12 @@ class MyNotes {
 			type: 'DELETE',
 			success: res => {
 				thisNote.slideUp();
-				console.log('delete');
-				console.log(res);
 
 				if (res.userNoteCount < 5) {
-					console.log('hit');
 					$('.note-limit-message').removeClass('active');
 				}
 			},
 			error: res => {
-				console.log('sorry');
 				console.log(res);
 			}
 		});
